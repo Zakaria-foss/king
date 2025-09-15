@@ -41,11 +41,16 @@ jobs:
           yes | sdkmanager --licenses
           sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.0"
 
+      - name: Android SDK diagnostics
+        run: |
+          sdkmanager --list | head -n 200 || true
+
       - name: Build Debug APK
         shell: bash
         run: |
           source "$HOME/.sdkman/bin/sdkman-init.sh"
-          gradle assembleDebug --no-daemon --stacktrace
+          gradle --version
+          gradle assembleDebug --no-daemon --stacktrace --info --warning-mode all
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
