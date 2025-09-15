@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome Clean UI</title>
+  <style>
+    :root{
+      --brand:#1e88e5; /* primary blue */
+      --brand-light:#e3f2fd; /* light blue background */
+      --text:#0d1b2a;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: 'Segoe UI', Roboto, sans-serif;
+      background:var(--brand-light);
+      color:var(--text);
+      display:flex;
+      flex-direction:column;
+    }
+
+    /* Screen container */
+    .screen{
+      flex:1;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      animation: fadeIn .3s ease;
+    }
+    .screen.active{display:flex}
+
+    /* Welcome title */
+    .welcome-title{
+      font-size: clamp(32px, 7vw, 48px);
+      font-weight: 700;
+      color:var(--brand);
+      text-shadow: 0 2px 4px rgba(30,136,229,0.15);
+      margin:0;
+    }
+
+    /* Clean bottom nav */
+    .bottom-nav{
+      display:flex;
+      justify-content:center;
+      gap:20px;
+      padding:16px;
+      background:#fff;
+      border-top:1px solid #d0d7de;
+      box-shadow:0 -2px 6px rgba(0,0,0,0.05);
+    }
+    .tab{
+      border:none;
+      background:transparent;
+      font-size:17px;
+      font-weight:600;
+      color:#4a5568;
+      padding:10px 20px;
+      border-radius:12px;
+      cursor:pointer;
+      transition: all .2s ease;
+    }
+    .tab:hover{
+      background:var(--brand-light);
+      color:var(--brand);
+    }
+    .tab[aria-current="page"]{
+      background:var(--brand);
+      color:#fff;
+      box-shadow: 0 4px 12px rgba(30,136,229,.3);
+    }
+
+    @keyframes fadeIn{
+      from{opacity:0; transform:translateY(10px)}
+      to{opacity:1; transform:translateY(0)}
+    }
+  </style>
+</head>
+<body>
+  <main id="scans" class="screen active" role="main" aria-labelledby="welcome">
+    <h1 id="welcome" class="welcome-title">Welcome</h1>
+  </main>
+
+  <main id="mycard" class="screen" role="main" aria-labelledby="helloworld">
+    <h1 id="helloworld" class="welcome-title">Hello World</h1>
+  </main>
+
+  <nav class="bottom-nav" aria-label="Bottom navigation">
+    <button class="tab" id="tab-scans" aria-current="page">Scans</button>
+    <button class="tab" id="tab-mycard">My card</button>
+  </nav>
+
+  <script>
+    const scans = document.getElementById('scans');
+    const mycard = document.getElementById('mycard');
+    const tScans = document.getElementById('tab-scans');
+    const tMy = document.getElementById('tab-mycard');
+
+    function show(view){
+      if(view==='scans'){
+        scans.classList.add('active');
+        mycard.classList.remove('active');
+        tScans.setAttribute('aria-current','page');
+        tMy.removeAttribute('aria-current');
+      }else{
+        mycard.classList.add('active');
+        scans.classList.remove('active');
+        tMy.setAttribute('aria-current','page');
+        tScans.removeAttribute('aria-current');
+      }
+      window.scrollTo({top:0, behavior:'instant'});
+    }
+    tScans.addEventListener('click',()=>show('scans'));
+    tMy.addEventListener('click',()=>show('mycard'));
+  </script>
+</body>
+</html>
