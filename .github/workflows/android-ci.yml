@@ -19,19 +19,18 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Install SDKMAN
+      - name: Install SDKMAN and Gradle 8.7
+        shell: bash
         run: |
           curl -s "https://get.sdkman.io" | bash
-          echo "sdkman_auto_answer=true" >> $HOME/.sdkman/etc/config
+          echo "sdkman_auto_answer=true" >> "$HOME/.sdkman/etc/config"
           source "$HOME/.sdkman/bin/sdkman-init.sh"
           sdk version
           sdk install gradle 8.7
-          echo "source $HOME/.sdkman/bin/sdkman-init.sh" >> $GITHUB_ENV
-          echo "GRADLE_HOME=$HOME/.sdkman/candidates/gradle/current" >> $GITHUB_ENV
       - name: Show Gradle version
         shell: bash
         run: |
-          source $HOME/.sdkman/bin/sdkman-init.sh
+          source "$HOME/.sdkman/bin/sdkman-init.sh"
           gradle -v
 
       - name: Set up Android SDK
@@ -45,7 +44,7 @@ jobs:
       - name: Build Debug APK
         shell: bash
         run: |
-          source $HOME/.sdkman/bin/sdkman-init.sh
+          source "$HOME/.sdkman/bin/sdkman-init.sh"
           gradle assembleDebug --no-daemon --stacktrace
 
       - name: Upload APK artifact
