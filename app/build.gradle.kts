@@ -50,7 +50,9 @@ android {
 }
 
 dependencies {
-    val composeBom = platform("androidx.compose:compose-bom:2024.08.00")
+    // Keep Compose libraries aligned with Kotlin 1.9.24 and compiler 1.5.14
+    // 2024.06.00 maps to Compose 1.6.x which is compatible with Kotlin 1.9.24
+    val composeBom = platform("androidx.compose:compose-bom:2024.06.00")
     implementation(composeBom)
     androidTestImplementation(composeBom)
 
@@ -62,7 +64,8 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
-    implementation("androidx.navigation:navigation-compose:2.8.0")
+    // Use a Navigation Compose version compatible with Compose 1.6.x
+    implementation("androidx.navigation:navigation-compose:2.7.7")
 
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
